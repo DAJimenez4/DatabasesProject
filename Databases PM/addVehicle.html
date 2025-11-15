@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Vehicle - Parking Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #6a11cb;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: orange;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 0 20px;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 70px;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 5px 0;
+            position: relative;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        
+        .vehicle-container {
+            background-color: white;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 900px;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .vehicle-container h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        
+        .info-message {
+            background-color: #e8f4fd;
+            border: 1px solid #b6d7f9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        
+        /* Table Styles */
+        .vehicle-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .vehicle-table th {
+            background-color: #34495e;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .vehicle-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        
+        .vehicle-table tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .vehicle-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .add-edit-btn {
+            padding: 8px 16px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .add-edit-btn:hover {
+            background-color: #34495e;
+            transform: translateY(-1px);
+        }
+        
+        .empty-row {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 30px 20px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-row {
+    	    display: flex;
+   	    align-items: center;
+   	    gap: 15px;
+	    flex-wrap: nowrap; 
+	}
+        
+        .contact-label {
+            font-weight: 600;
+            color: #ecf0f1;
+            font-size: 16px;
+        }
+        
+        .contact-value {
+            color: #bdc3c7;
+            font-size: 15px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                height: auto;
+                padding: 15px 0;
+            }
+            
+            .logo-container {
+                margin-bottom: 15px;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .nav-links li {
+                margin-left: 0;
+            }
+            
+            .vehicle-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-links li {
+                margin: 5px 10px;
+            }
+            
+            .contact-row {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+            
+            .vehicle-table th,
+            .vehicle-table td {
+                padding: 8px 10px;
+                font-size: 14px;
+            }
+            
+            .add-edit-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo-container">
+                <div>Parking Management</div>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Parking Map</a></li>
+                <li><a href="#">Rates</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <div class="main-content">
+        <div class="vehicle-container">
+            <h2>Manage Your Vehicles</h2>
+            
+            <div class="info-message">
+                Only 2 vehicles are allowed for one permit
+            </div>
+            
+            <table class="vehicle-table">
+                <thead>
+                    <tr>
+                        <th>Permit</th>
+                        <th>Permit ID</th>
+                        <th>Vehicle</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Student Parking</td>
+                        <td>STU-2023-001</td>
+                        <td>Toyota Camry (ABC123)</td>
+                        <td><button class="add-edit-btn" onclick="manageVehicle('STU-2023-001')">Add/Edit</button></td>
+                    </tr>
+                    <tr>
+                        <td>Student Parking</td>
+                        <td>STU-2023-001</td>
+                        <td class="empty-row">No vehicle assigned</td>
+                        <td><button class="add-edit-btn" onclick="manageVehicle('STU-2023-001')">Add/Edit</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <h2>Contact Us</h2>
+            <div class="contact-row">
+                <div class="contact-label">Email:</div>
+                <div class="contact-value">support@yourapp.com</div>
+                <div class="contact-label">Phone:</div>
+                <div class="contact-value">(123) 456-7890</div>
+                <div class="contact-label">Location:</div>
+                <div class="contact-value">123 Main Street, City, State 12345</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function manageVehicle(permitId) {
+            // In a real application, this would open a form to add/edit vehicle information
+            alert(`Managing vehicle for permit: ${permitId}\n\nThis would open a form to:\n- Add a new vehicle\n- Edit existing vehicle information\n- Remove a vehicle`);
+            // Example redirect:
+            // window.location.href = 'manage-vehicle.html?permit=' + permitId;
+        }
+
+        // You can add functionality to handle different scenarios
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.add-edit-btn');
+            buttons.forEach((button, index) => {
+                button.addEventListener('click', function() {
+                    const row = this.closest('tr');
+                    const vehicleCell = row.cells[2];
+                    const permitId = row.cells[1].textContent;
+                    
+                    if (vehicleCell.classList.contains('empty-row')) {
+                        // This is for adding a new vehicle
+                        console.log('Adding new vehicle for permit:', permitId);
+                    } else {
+                        // This is for editing an existing vehicle
+                        console.log('Editing vehicle for permit:', permitId);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
