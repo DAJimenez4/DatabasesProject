@@ -13,7 +13,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            background-color: #6a11cb;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -21,7 +21,7 @@
         
         /* Header Styles */
         header {
-            background-color: white;
+            background-color: orange;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             padding: 0 20px;
         }
@@ -40,19 +40,6 @@
             align-items: center;
         }
         
-        .logo-placeholder {
-            width: 180px;
-            height: 40px;
-            background-color: #f5f5f5;
-            border: 1px dashed #ccc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #888;
-            font-size: 14px;
-            border-radius: 4px;
-        }
-        
         .nav-links {
             display: flex;
             list-style: none;
@@ -67,33 +54,8 @@
             color: #2c3e50;
             font-weight: 500;
             font-size: 16px;
-            transition: color 0.3s;
             padding: 5px 0;
             position: relative;
-        }
-        
-        .nav-links a:hover {
-            color: #3498db;
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #3498db;
-            transition: width 0.3s;
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        
-        .login-link {
-            color: #3498db !important;
-            font-weight: 600 !important;
         }
         
         /* Main Content Styles */
@@ -108,33 +70,9 @@
         .login-container {
             background-color: white;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             width: 100%;
             max-width: 420px;
             padding: 40px 30px;
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .logo {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .logo h1 {
-            color: #2c3e50;
-            font-size: 28px;
-            font-weight: 600;
-        }
-        
-        .logo p {
-            color: #7f8c8d;
-            margin-top: 8px;
-            font-size: 14px;
         }
         
         .login-form h2 {
@@ -159,22 +97,16 @@
         .form-group input {
             width: 100%;
             padding: 14px 16px;
-            border: 1px solid #ddd;
+            border: 1px solid;
             border-radius: 8px;
             font-size: 15px;
             transition: all 0.3s;
         }
         
-        .form-group input:focus {
-            border-color: #3498db;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-            outline: none;
-        }
-        
         .login-btn {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(to right, #3498db, #2c3e50);
+            background-color: #2c3e50;
             color: white;
             border: none;
             border-radius: 8px;
@@ -183,15 +115,6 @@
             cursor: pointer;
             transition: all 0.3s;
             margin-top: 10px;
-        }
-        
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .login-btn:active {
-            transform: translateY(0);
         }
         
         .form-footer {
@@ -207,10 +130,6 @@
             transition: color 0.2s;
         }
         
-        .form-footer a:hover {
-            color: #2980b9;
-            text-decoration: underline;
-        }
         
         .error-message {
             color: #e74c3c;
@@ -231,42 +150,17 @@
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            align-items: center;
         }
-        
-        .contact-heading {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #ecf0f1;
-            text-align: center;
-        }
-        
-        .contact-info {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 800px;
-            flex-wrap: wrap;
-        }
-        
-        .contact-item {
-            flex: 1;
-            min-width: 200px;
-            margin: 10px;
-            text-align: center;
-            padding: 15px;
-        }
-        
-        .contact-icon {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: #3498db;
-        }
+
+        .contact-row {
+    	    display: flex;
+   	    align-items: center;
+   	    gap: 15px;
+	    flex-wrap: nowrap; 
+	}
         
         .contact-label {
             font-weight: 600;
-            margin-bottom: 8px;
             color: #ecf0f1;
             font-size: 16px;
         }
@@ -275,94 +169,30 @@
             color: #bdc3c7;
             font-size: 15px;
         }
-        
-        .copyright {
-            margin-top: 25px;
-            text-align: center;
-            color: #95a5a6;
-            font-size: 14px;
-            border-top: 1px solid #34495e;
-            padding-top: 20px;
-            width: 100%;
-        }
-        
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                height: auto;
-                padding: 15px 0;
-            }
-            
-            .logo-container {
-                margin-bottom: 15px;
-            }
-            
-            .nav-links {
-                width: 100%;
-                justify-content: space-between;
-            }
-            
-            .nav-links li {
-                margin-left: 0;
-            }
-            
-            .login-container {
-                padding: 30px 20px;
-            }
-            
-            .contact-info {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .contact-item {
-                width: 100%;
-                max-width: 300px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .nav-links li {
-                margin: 5px 10px;
-            }
-            
-            .logo-placeholder {
-                width: 150px;
-            }
-        }
     </style>
 </head>
 <body>
     <header>
         <div class="nav-container">
             <div class="logo-container">
-                <div class="logo-placeholder">Logo Placeholder</div>
+                <div>Parking Management</div>
             </div>
             
             <ul class="nav-links">
                 <li><a href="#">FAQ</a></li>
                 <li><a href="#">Parking Map</a></li>
                 <li><a href="#">Rates</a></li>
-                <li><a href="#" class="login-link">Login / Create Account</a></li>
+                <li><a href="#">Login / Create Account</a></li>
             </ul>
         </div>
     </header>
     
     <div class="main-content">
         <div class="login-container">
-            <div class="logo">
-                <h1>SecureAccess</h1>
-                <p>Enter your credentials to continue</p>
-            </div>
+
             
             <form class="login-form">
-                <h2>Sign In to Your Account</h2>
+                <h2>Log In</h2>
                 
                 <div class="form-group">
                     <label for="uid">U_ID</label>
@@ -379,7 +209,6 @@
                 <button type="submit" class="login-btn">Sign In</button>
                 
                 <div class="form-footer">
-                    <p>Don't have an account? <a href="#">Contact Administrator</a></p>
                     <p><a href="#">Forgot your password?</a></p>
                 </div>
             </form>
@@ -387,62 +216,18 @@
     </div>
 
     <footer>
-        <div class="footer-container">
-            <h3 class="contact-heading">Contact Us</h3>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <div class="contact-icon">✉️</div>
-                    <div class="contact-label">Email</div>
-                    <div class="contact-value">support@yourapp.com</div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">📞</div>
-                    <div class="contact-label">Phone</div>
-                    <div class="contact-value">(123) 456-7890</div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">📍</div>
-                    <div class="contact-label">Location</div>
-                    <div class="contact-value">123 Main Street, City, State 12345</div>
-                </div>
-            </div>
-            <div class="copyright">
-                &copy; 2023 Your Company Name. All rights reserved.
-            </div>
+    <div class="footer-container">
+         <h2>Contact Us</h2>
+         <div class="contact-row">
+            <div class="contact-label">Email:</div>
+            <div class="contact-value">support@yourapp.com</div>
+            <div class="contact-label">Phone:</div>
+            <div class="contact-value">(123) 456-7890</div>
+            <div class="contact-label">Location:</div>
+            <div class="contact-value">123 Main Street, City, State 12345</div>
         </div>
-    </footer>
+    </div>
+   </footer>
 
-    <script>
-        document.querySelector('.login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const uid = document.getElementById('uid').value;
-            const password = document.getElementById('password').value;
-            let isValid = true;
-            
-            // Reset error messages
-            document.getElementById('uid-error').style.display = 'none';
-            document.getElementById('password-error').style.display = 'none';
-            
-            // Validate U_ID
-            if (uid.trim() === '') {
-                document.getElementById('uid-error').style.display = 'block';
-                isValid = false;
-            }
-            
-            // Validate Password
-            if (password.trim() === '') {
-                document.getElementById('password-error').style.display = 'block';
-                isValid = false;
-            }
-            
-            if (isValid) {
-                // In a real application, you would send the data to a server here
-                alert('Login successful! Redirecting...');
-                // Redirect to the next page
-                // window.location.href = 'dashboard.html';
-            }
-        });
-    </script>
 </body>
 </html>
