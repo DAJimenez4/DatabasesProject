@@ -190,6 +190,30 @@
         <div class="signup-container">
             <form class="signup-form">
                 <h2>Create Account</h2>
+
+                <div class="form-group">
+                    <label for="name">First and Last Name</label>
+                    <input type="text" id="name" placeholder="Input your first and last name" required>
+                    <div class="error-message" id="password-error">Please enter your name</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="vehicle">Vehicle</label>
+                    <input type="text" id="vehicle" placeholder="Enter your vehicle make and model" required>
+                    <div class="error-message" id="password-error">Please enter your type of vehicle</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Plate number</label>
+                    <input type="text" id="platenum" placeholder="Enter your License Plate number" required>
+                    <div class="error-message" id="password-error">Please enter a valid license plate number</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="color">Color</label>
+                    <input type="text" id="color" placeholder="Enter your vehicle's color" required>
+                    <div class="error-message" id="password-error">Please enter a valid color</div>
+                </div>
                 
                 <div class="form-group">
                     <label for="uid">U_ID</label>
@@ -231,48 +255,5 @@
             </div>
         </div>
     </footer>
-
-    <script>
-        document.querySelector('.signup-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const uid = document.getElementById('uid').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            let isValid = true;
-            
-            // Reset error messages
-            document.getElementById('uid-error').style.display = 'none';
-            document.getElementById('email-error').style.display = 'none';
-            document.getElementById('password-error').style.display = 'none';
-            
-            // Validate U_ID
-            if (uid.trim() === '') {
-                document.getElementById('uid-error').style.display = 'block';
-                isValid = false;
-            }
-            
-            // Validate Email
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                document.getElementById('email-error').style.display = 'block';
-                isValid = false;
-            }
-            
-            // Validate Password
-            if (password.trim() === '' || password.length < 6) {
-                document.getElementById('password-error').textContent = 'Password must be at least 6 characters';
-                document.getElementById('password-error').style.display = 'block';
-                isValid = false;
-            }
-            
-            if (isValid) {
-                // In a real application, you would send the data to a server here
-                alert('Account created successfully! Redirecting to login...');
-                // Redirect to the login page
-                // window.location.href = 'main.html';
-            }
-        });
-    </script>
 </body>
 </html>
