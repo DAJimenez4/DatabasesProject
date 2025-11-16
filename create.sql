@@ -1,7 +1,7 @@
 -- Parking Management Database Creation Script
--- This script creates all tables with enforced foreign key relationships
+-- this script creates all tables with enforced foreign key relationships
 
--- Create Users table (independent entity)
+-- create Users table (independent entity)
 CREATE TABLE Users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(30) NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE Users (
     role VARCHAR(20) NOT NULL
 );
 
--- Create Vehicles table with FOREIGN KEY relationship to Users
+-- create Vehicles table with FOREIGN KEY relationship to Users
 CREATE TABLE Vehicles (
     vehicle_id INT AUTO_INCREMENT PRIMARY KEY,
     license_plate VARCHAR(10) NOT NULL UNIQUE,
@@ -21,7 +21,7 @@ CREATE TABLE Vehicles (
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
 
--- Create Parking_Zone table (independent entity)
+-- create Parking_Zone table (independent entity)
 CREATE TABLE Parking_Zone (
     zone_id INT AUTO_INCREMENT PRIMARY KEY,
     zone_name VARCHAR(20) NOT NULL UNIQUE,
@@ -29,7 +29,7 @@ CREATE TABLE Parking_Zone (
     location VARCHAR(50)
 );
 
--- Create Permit_Grade table (independent entity)
+-- create Permit_Grade table (independent entity)
 CREATE TABLE Permit_Grade (
     grade_id INT AUTO_INCREMENT PRIMARY KEY,
     grade_name VARCHAR(20) NOT NULL UNIQUE,
@@ -37,7 +37,7 @@ CREATE TABLE Permit_Grade (
     expiration_date DATE NOT NULL
 );
 
--- Create Permit table with FOREIGN KEY relationships to Vehicles and Permit_Grade
+-- create Permit table with FOREIGN KEY relationships to Vehicles and Permit_Grade
 CREATE TABLE Permit (
     permit_id INT AUTO_INCREMENT PRIMARY KEY,
     vehicle_id INT UNIQUE NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE Permit (
     FOREIGN KEY (grade_id) REFERENCES Permit_Grade(grade_id) ON DELETE CASCADE
 );
 
--- Create Zone_Access junction table with COMPOSITE PRIMARY KEY and FOREIGN KEY relationships
+-- create Zone_Access junction table with COMPOSITE PRIMARY KEY and FOREIGN KEY relationships
 CREATE TABLE Zone_Access (
     grade_id INT NOT NULL,
     zone_id INT NOT NULL,
