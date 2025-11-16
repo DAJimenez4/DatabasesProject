@@ -19,7 +19,6 @@
             flex-direction: column;
         }
         
-        /* Header Styles */
         header {
             background-color: orange;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -58,7 +57,6 @@
             position: relative;
         }
         
-        /* Main Content Styles */
         .main-content {
             flex: 1;
             display: flex;
@@ -93,7 +91,6 @@
             font-weight: 500;
         }
         
-        /* Table Styles */
         .vehicle-table {
             width: 100%;
             border-collapse: collapse;
@@ -145,7 +142,6 @@
             font-style: italic;
         }
         
-        /* Footer Styles */
         footer {
             background-color: #2c3e50;
             color: white;
@@ -176,61 +172,6 @@
             color: #bdc3c7;
             font-size: 15px;
         }
-
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                height: auto;
-                padding: 15px 0;
-            }
-            
-            .logo-container {
-                margin-bottom: 15px;
-            }
-            
-            .nav-links {
-                width: 100%;
-                justify-content: space-between;
-            }
-            
-            .nav-links li {
-                margin-left: 0;
-            }
-            
-            .vehicle-table {
-                display: block;
-                overflow-x: auto;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .nav-links li {
-                margin: 5px 10px;
-            }
-            
-            .contact-row {
-                flex-direction: column;
-                gap: 10px;
-                align-items: flex-start;
-            }
-            
-            .vehicle-table th,
-            .vehicle-table td {
-                padding: 8px 10px;
-                font-size: 14px;
-            }
-            
-            .add-edit-btn {
-                padding: 6px 12px;
-                font-size: 12px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -241,10 +182,10 @@
             </div>
             
             <ul class="nav-links">
-                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Dashboard</a></li>
                 <li><a href="#">Parking Map</a></li>
                 <li><a href="#">Rates</a></li>
-                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="#">Account Information</a></li>
                 <li><a href="#">Logout</a></li>
             </ul>
         </div>
@@ -255,7 +196,7 @@
             <h2>Manage Your Vehicles</h2>
             
             <div class="info-message">
-                Only 2 vehicles are allowed for one permit
+                Only 2 vehicles are allowed for one valid permit
             </div>
             
             <table class="vehicle-table">
@@ -269,16 +210,16 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Student Parking</td>
+                        <td>Staff Parking</td>
                         <td>STU-2023-001</td>
-                        <td>Toyota Camry (ABC123)</td>
-                        <td><button class="add-edit-btn" onclick="manageVehicle('STU-2023-001')">Add/Edit</button></td>
+                        <td>Toyota Camry (TX1234)</td>
+                        <td><button class="add-edit-btn">Add/Edit</button></td>
                     </tr>
                     <tr>
-                        <td>Student Parking</td>
+                        <td>Staff Parking</td>
                         <td>STU-2023-001</td>
                         <td class="empty-row">No vehicle assigned</td>
-                        <td><button class="add-edit-btn" onclick="manageVehicle('STU-2023-001')">Add/Edit</button></td>
+                        <td><button class="add-edit-btn">Add/Edit</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -298,34 +239,5 @@
             </div>
         </div>
     </footer>
-
-    <script>
-        function manageVehicle(permitId) {
-            // In a real application, this would open a form to add/edit vehicle information
-            alert(`Managing vehicle for permit: ${permitId}\n\nThis would open a form to:\n- Add a new vehicle\n- Edit existing vehicle information\n- Remove a vehicle`);
-            // Example redirect:
-            // window.location.href = 'manage-vehicle.html?permit=' + permitId;
-        }
-
-        // You can add functionality to handle different scenarios
-        document.addEventListener('DOMContentLoaded', function() {
-            const buttons = document.querySelectorAll('.add-edit-btn');
-            buttons.forEach((button, index) => {
-                button.addEventListener('click', function() {
-                    const row = this.closest('tr');
-                    const vehicleCell = row.cells[2];
-                    const permitId = row.cells[1].textContent;
-                    
-                    if (vehicleCell.classList.contains('empty-row')) {
-                        // This is for adding a new vehicle
-                        console.log('Adding new vehicle for permit:', permitId);
-                    } else {
-                        // This is for editing an existing vehicle
-                        console.log('Editing vehicle for permit:', permitId);
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 </html>
