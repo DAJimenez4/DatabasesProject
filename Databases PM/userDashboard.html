@@ -198,9 +198,11 @@
             </div>
             
             <ul class="nav-links">
-                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Permits</a></li>
+                <li><a href="#">Edit Permits</a></li>
                 <li><a href="#">Parking Map</a></li>
                 <li><a href="#">Rates</a></li>
+                <li><a href="#">Account Information</a></li>
                 <li><a href="#">Logout</a></li>
             </ul>
         </div>
@@ -209,6 +211,7 @@
     <div class="main-content">
         <div class="dashboard-container">
             <h2>User Dashboard</h2>
+            <h4>Welcome (name)!</h2>
             <div class="button-grid">
                 <button class="dashboard-btn" onclick="navigateTo('view-citations')">View Citations</button>
                 <button class="dashboard-btn" onclick="navigateTo('pay-citation')">Pay for a Citation</button>
@@ -231,24 +234,5 @@
             </div>
         </div>
     </footer>
-
-    <script>
-        function navigateTo(page) {
-            // In a real application, this would redirect to the appropriate page
-            alert(`Navigating to ${page} page...`);
-            // Example redirect:
-            // window.location.href = page + '.html';
-        }
-
-        // You can also add event listeners for the buttons
-        document.addEventListener('DOMContentLoaded', function() {
-            const buttons = document.querySelectorAll('.dashboard-btn');
-            buttons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Add any additional click handling here
-                });
-            });
-        });
-    </script>
 </body>
 </html>
