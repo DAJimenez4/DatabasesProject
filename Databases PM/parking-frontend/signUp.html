@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Parking Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #6a11cb;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: orange;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 0 20px;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 70px;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 5px 0;
+            position: relative;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        
+        .signup-container {
+            background-color: white;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 420px;
+            padding: 40px 30px;
+        }
+        
+        .signup-form h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #34495e;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+        
+        .signup-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        
+        .form-footer a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 30px 20px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-row {
+    	    display: flex;
+   	    align-items: center;
+   	    gap: 15px;
+	    flex-wrap: nowrap; 
+	}
+        
+        .contact-label {
+            font-weight: 600;
+            color: #ecf0f1;
+            font-size: 16px;
+        }
+        
+        .contact-value {
+            color: #bdc3c7;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo-container">
+                <div>Parking Management</div>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Parking Map</a></li>
+                <li><a href="#">Rates</a></li>
+                <li><a href="#">Login / Create Account</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <div class="main-content">
+        <div class="signup-container">
+            <form class="signup-form">
+                <h2>Create Account</h2>
+                
+                <div class="form-group">
+                    <label for="uid">U_ID</label>
+                    <input type="text" id="uid" placeholder="Choose your User ID" required>
+                    <div class="error-message" id="uid-error">Please enter a valid User ID</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter your email address" required>
+                    <div class="error-message" id="email-error">Please enter a valid email address</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Create your password" required>
+                    <div class="error-message" id="password-error">Please enter a valid password</div>
+                </div>
+                
+                <button type="submit" class="signup-btn">Create Account</button>
+                
+                <div class="form-footer">
+                    <p>Already have an account? <a href="main.html">Log in here</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <h2>Contact Us</h2>
+            <div class="contact-row">
+                <div class="contact-label">Email:</div>
+                <div class="contact-value">parking@portal.com</div>
+                <div class="contact-label">Phone:</div>
+                <div class="contact-value">(XXX) XXX-XXX</div>
+                <div class="contact-label">Location:</div>
+                <div class="contact-value">800 W Campbell Rd, Richardson, TX 75080</div>
+            </div>
+        </div>
+    </footer>
+
+<script>
+    document.querySelector('.signup-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const uid = document.getElementById('uid').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        
+        // Reset error messages
+        document.getElementById('uid-error').style.display = 'none';
+        document.getElementById('email-error').style.display = 'none';
+        document.getElementById('password-error').style.display = 'none';
+        
+        // Basic client-side validation
+        let isValid = true;
+        
+        if (uid.trim() === '') {
+            document.getElementById('uid-error').textContent = 'Please enter a User ID';
+            document.getElementById('uid-error').style.display = 'block';
+            isValid = false;
+        }
+        
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            document.getElementById('email-error').textContent = 'Please enter a valid email address';
+            document.getElementById('email-error').style.display = 'block';
+            isValid = false;
+        }
+        
+        if (password.trim() === '' || password.length < 6) {
+            document.getElementById('password-error').textContent = 'Password must be at least 6 characters';
+            document.getElementById('password-error').style.display = 'block';
+            isValid = false;
+        }
+        
+        if (!isValid) return;
+        
+        // Show loading state
+        const submitBtn = document.querySelector('.signup-btn');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Creating Account...';
+        submitBtn.disabled = true;
+        
+        try {
+            // Send data to backend (relative path since both are served from same origin)
+            const response = await fetch('/api/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ uid, email, password })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                alert('Account created successfully! Redirecting to login...');
+                window.location.href = '/'; // Redirect to main login page
+            } else {
+                // Show specific error message from server
+                if (result.message.includes('User ID already exists')) {
+                    document.getElementById('uid-error').textContent = result.message;
+                    document.getElementById('uid-error').style.display = 'block';
+                } else if (result.message.includes('Email already exists')) {
+                    document.getElementById('email-error').textContent = result.message;
+                    document.getElementById('email-error').style.display = 'block';
+                } else {
+                    alert('Error: ' + result.message);
+                }
+            }
+            
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Network error. Please check if the server is running.');
+        } finally {
+            // Reset button state
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+    </script>
+</body>
+</html>
