@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Parking Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #6a11cb;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: orange;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 0 20px;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 70px;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .admin-badge {
+            background-color: #e74c3c;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 5px 0;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #e74c3c;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        
+        .dashboard-container {
+            background-color: white;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 1200px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .dashboard-header h2 {
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 24px;
+        }
+        
+        .user-count {
+            background-color: #3498db;
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        /* Table Styles */
+        .users-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .users-table th {
+            background-color: #34495e;
+            color: white;
+            padding: 16px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 15px;
+        }
+        
+        .users-table th:first-child {
+            border-top-left-radius: 8px;
+        }
+        
+        .users-table th:last-child {
+            border-top-right-radius: 8px;
+        }
+        
+        .users-table td {
+            padding: 14px 15px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+            color: #2c3e50;
+        }
+        
+        .users-table tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .users-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* Citation Status Styles */
+        .citations-cell {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .citation-count {
+            background-color: #e74c3c;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            min-width: 20px;
+            text-align: center;
+        }
+        
+        .citation-status {
+            font-size: 13px;
+            color: #7f8c8d;
+        }
+        
+        /* Button Styles */
+        .edit-btn {
+            padding: 8px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        .edit-btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(52, 152, 219, 0.2);
+        }
+        
+        /* Search Bar */
+        .search-container {
+            margin-bottom: 25px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        
+        .search-btn {
+            padding: 12px 24px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .search-btn:hover {
+            background-color: #34495e;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 30px 20px;
+            margin-top: 40px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-row {
+    	    display: flex;
+   	    align-items: center;
+   	    gap: 15px;
+	    flex-wrap: nowrap; 
+	}
+        
+        .contact-label {
+            font-weight: 600;
+            color: #ecf0f1;
+            font-size: 16px;
+        }
+        
+        .contact-value {
+            color: #bdc3c7;
+            font-size: 15px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 1024px) {
+            .dashboard-container {
+                padding: 30px 20px;
+            }
+            
+            .users-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .users-table th,
+            .users-table td {
+                padding: 12px 10px;
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                height: auto;
+                padding: 15px 0;
+            }
+            
+            .logo-container {
+                margin-bottom: 15px;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: space-between;
+                gap: 15px;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .search-container {
+                flex-direction: column;
+            }
+            
+            .edit-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .nav-links li {
+                margin: 0 5px;
+            }
+            
+            .contact-row {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+            
+            .citations-cell {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo-container">
+                <div>Parking Management</div>
+                <div class="admin-badge">Admin Panel</div>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="adminLogin.html">Logout</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <div class="main-content">
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h2>User Accounts Management</h2>
+                <div class="user-count">Total Users: 8</div>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search by name, U_ID, or vehicle number..." id="searchInput">
+                <button class="search-btn" onclick="searchUsers()">Search</button>
+                <button class="search-btn" onclick="resetSearch()" style="background-color: #95a5a6;">Reset</button>
+            </div>
+            
+            <table class="users-table">
+                <thead>
+                    <tr>
+                        <th>User's Name</th>
+                        <th>U_ID</th>
+                        <th>Vehicle Number</th>
+                        <th>Citations</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                    <!-- User 1 -->
+                    <tr>
+                        <td>John Smith</td>
+                        <td>jsmith2023</td>
+                        <td>TEX-7890</td>
+                        <td>
+                            <div class="citations-cell">
+                                <span class="citation-count">2</span>
+                                <span class="citation-status">1 unpaid</span>
+                            </div>
+                        </td>
+                        <td><button class="edit-btn" onclick="editCitations('jsmith2023')">Edit Citations</button></td>
+                    </tr>
+                    
+                    <!-- User 2 -->
+                    <tr>
+                        <td>Emma Johnson</td>
+                        <td>ejohnson01</td>
+                        <td>CAL-4567</td>
+                        <td>
+                            <div class="citations-cell">
+                                <span class="citation-count">0</span>
+                                <span class="citation-status">No citations</span>
+                            </div>
+                        </td>
+                        <td><button class="edit-btn" onclick="editCitations('ejohnson01')">Edit Citations</button></td>
+                    </tr>
+                    
+                    <!-- User 3 -->
+                    <tr>
+                        <td>Michael Chen</td>
+                        <td>mchen88</td>
+                        <td>NY-1234</td>
+                        <td>
+                            <div class="citations-cell">
+                                <span class="citation-count">3</span>
+                                <span class="citation-status">All paid</span>
+                            </div>
+                        </td>
+                        <td><button class="edit-btn" onclick="editCitations('mchen88')">Edit Citations</button></td>
+                    </tr>
+                    
+                    <!-- User 4 -->
+                    <tr>
+                        <td>Sarah Williams</td>
+                        <td>swilliams99</td>
+                        <td>FL-5678</td>
+                        <td>
+                            <div class="citations-cell">
+                                <span class="citation-count">1</span>
+                                <span class="citation-status">Appealed</span>
+                            </div>
+                        </td>
+                        <td><button class="edit-btn" onclick="editCitations('swilliams99')">Edit Citations</button></td>
+                    </tr>
+                    
+                    <!-- User 5 -->
+                    <tr>
+                        <td>Robert Davis</td>
+                        <td>rdavis45</td>
+                        <td>TX-9012</td>
+                        <td>
+                            <div class="citations-cell">
+                                <span class="citation-count">5</span>
+                                <span class="citation-status">3 unpaid</span>
+                            </div>
+                        </td>
+                        <td><button class="edit-btn" onclick="editCitations('rdavis45')">Edit Citations</button></td>
+                    </tr>
+                    
+                    <!-- User 6 -->
+                    <tr>
+                        <td>Lisa Martinez</td>
+                        <td>lmartinez22</td>
+                        <td>CA-3456</td>
+                        <td>
+                            <div class="citations-cell">
+                                <span class="citation-count">0</span>
+                                <span class="citation-status">No citations</span>
+                            </div>
+                        </td>
+                        <td><button class="edit-btn" onclick="editCitations('lmartinez22')">Edit Citations</button></td>
+                    </tr>
+                    
+                    <!-- User 7 -->
+                    <tr>
+                        <td>David Wilson</td>
+                        <td>dwilson33</td>
+                        <td>IL-7890</td>
+                        <td>
+                            <div class="citations-cell">
+                                <span class="citation-count">2</span>
+                                <span class="citation-status">1 pending appeal</span>
+                            </div>
+                        </td>
+                        <td><button class="edit-btn" onclick="editCitations('dwilson33')">Edit Citations</button></td>
+                    </tr>
+                    
+                    <!-- User 8 -->
+                    <tr>
+                        <td>Jennifer Brown</td>
+                        <td>jbrown77</td>
+                        <td>WA-2345</td>
+                        <td>
+                            <div class="citations-cell">
+                                <span class="citation-count">1</span>
+                                <span class="citation-status">Paid</span>
+                            </div>
+                        </td>
+                        <td><button class="edit-btn" onclick="editCitations('jbrown77')">Edit Citations</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <h2>Administrative Contact</h2>
+            <div class="contact-row">
+                <div class="contact-label">Admin Email:</div>
+                <div class="contact-value">admin@parkingmanagement.edu</div>
+                <div class="contact-label">Support Phone:</div>
+                <div class="contact-value">(555) 123-4567</div>
+                <div class="contact-label">Office Hours:</div>
+                <div class="contact-value">Mon-Fri 8:00 AM - 5:00 PM</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Sample user data for demonstration
+        const users = [
+            {
+                name: "John Smith",
+                uid: "jsmith2023",
+                vehicle: "TEX-7890",
+                citations: { count: 2, status: "1 unpaid" }
+            },
+            {
+                name: "Emma Johnson",
+                uid: "ejohnson01",
+                vehicle: "CAL-4567",
+                citations: { count: 0, status: "No citations" }
+            },
+            {
+                name: "Michael Chen",
+                uid: "mchen88",
+                vehicle: "NY-1234",
+                citations: { count: 3, status: "All paid" }
+            },
+            {
+                name: "Sarah Williams",
+                uid: "swilliams99",
+                vehicle: "FL-5678",
+                citations: { count: 1, status: "Appealed" }
+            },
+            {
+                name: "Robert Davis",
+                uid: "rdavis45",
+                vehicle: "TX-9012",
+                citations: { count: 5, status: "3 unpaid" }
+            },
+            {
+                name: "Lisa Martinez",
+                uid: "lmartinez22",
+                vehicle: "CA-3456",
+                citations: { count: 0, status: "No citations" }
+            },
+            {
+                name: "David Wilson",
+                uid: "dwilson33",
+                vehicle: "IL-7890",
+                citations: { count: 2, status: "1 pending appeal" }
+            },
+            {
+                name: "Jennifer Brown",
+                uid: "jbrown77",
+                vehicle: "WA-2345",
+                citations: { count: 1, status: "Paid" }
+            }
+        ];
+
+        function editCitations(uid) {
+            // Find the user
+            const user = users.find(u => u.uid === uid);
+            if (user) {
+                alert(`Editing citations for:\n\nUser: ${user.name}\nU_ID: ${user.uid}\nVehicle: ${user.vehicle}\n\nThis would open a citation management interface where you can:\n- Add new citations\n- Remove citations\n- Update citation status\n- Adjust fine amounts`);
+                
+                // In a real application, this would redirect to a citation management page:
+                // window.location.href = `manage-citations.html?uid=${uid}`;
+            }
+        }
+
+        function searchUsers() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            const tableBody = document.getElementById('usersTableBody');
+            const rows = tableBody.getElementsByTagName('tr');
+            
+            let visibleCount = 0;
+            
+            for (let row of rows) {
+                const cells = row.getElementsByTagName('td');
+                const name = cells[0].textContent.toLowerCase();
+                const uid = cells[1].textContent.toLowerCase();
+                const vehicle = cells[2].textContent.toLowerCase();
+                
+                if (searchTerm === '' || 
+                    name.includes(searchTerm) || 
+                    uid.includes(searchTerm) || 
+                    vehicle.includes(searchTerm)) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+            
+            // Update user count
+            document.querySelector('.user-count').textContent = `Showing: ${visibleCount} users`;
+        }
+
+        function resetSearch() {
+            document.getElementById('searchInput').value = '';
+            searchUsers();
+            document.querySelector('.user-count').textContent = `Total Users: ${users.length}`;
+        }
+
+        // Initialize search on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add event listener for Enter key in search
+            document.getElementById('searchInput').addEventListener('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    searchUsers();
+                }
+            });
+            
+            // Add click handlers to all edit buttons
+            const editButtons = document.querySelectorAll('.edit-btn');
+            editButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const row = this.closest('tr');
+                    const uid = row.cells[1].textContent;
+                    const userName = row.cells[0].textContent;
+                    
+                    console.log(`Admin wants to edit citations for: ${userName} (${uid})`);
+                    
+                    // You could also open a modal or new page here
+                    // openCitationModal(uid);
+                });
+            });
+        });
+
+        // Optional: Function to simulate adding a new citation
+        function simulateAddCitation(uid) {
+            const user = users.find(u => u.uid === uid);
+            if (user) {
+                user.citations.count++;
+                user.citations.status = "Updated - check details";
+                alert(`New citation added for ${user.name}\nTotal citations: ${user.citations.count}`);
+                
+                // In a real app, you would refresh the table or update the specific row
+                // refreshUserRow(uid);
+            }
+        }
+    </script>
+</body>
+</html>
