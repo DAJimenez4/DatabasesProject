@@ -7,6 +7,8 @@ CREATE TABLE Users (
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
     email VARCHAR(30) NOT NULL UNIQUE,
+    uid VARCHAR(30) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
     phone_number VARCHAR(15),
     role VARCHAR(20) NOT NULL
 );
