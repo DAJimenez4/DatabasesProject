@@ -1,8 +1,8 @@
 -- load data into Users table
-INSERT INTO Users (first_name, last_name, email, phone_number, role) VALUES
-('John', 'Doe', 'john.doe@email.com', '555-0101', 'student'),
-('Jane', 'Smith', 'jane.smith@email.com', '555-0102', 'staff'),
-('Bob', 'Johnson', 'bob.johnson@email.com', NULL, 'visitor');
+INSERT INTO Users (first_name, last_name, email, uid, password_hash, phone_number, role) VALUES
+('John', 'Doe', 'john.doe@email.com', 'john.doe', '$2a$10$EWCHlBNT.zK/6CMyHrh8Q.91W7uOlOhXKGxcTkk2Z/H0VExd3gV42', '555-0101', 'student'), -- password123
+('Jane', 'Smith', 'jane.smith@email.com', 'jane.smith', '$2a$10$EWCHlBNT.zK/6CMyHrh8Q.91W7uOlOhXKGxcTkk2Z/H0VExd3gV42', '555-0102', 'staff'), -- password123
+('Bob', 'Johnson', 'bob.johnson@email.com', 'bob.johnson', '$2a$10$EWCHlBNT.zK/6CMyHrh8Q.91W7uOlOhXKGxcTkk2Z/H0VExd3gV42', NULL, 'visitor'); -- password123
 
 -- load data into Parking_Zone table
 INSERT INTO Parking_Zone (zone_name, zone_level, location) VALUES

@@ -1,0 +1,19 @@
+# Node.js
+node_modules/
+
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs
+*.log
+
+
+# Editor
+.vscode/
+
+# MySQL
+dump.rdb 

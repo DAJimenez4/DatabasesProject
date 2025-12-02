@@ -192,6 +192,31 @@
                 <h2>Create Account</h2>
                 
                 <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" placeholder="Enter your first name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" placeholder="Enter your last name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="Enter your phone number (e.g. 555-0101)">
+                </div>
+
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select id="role" style="width: 100%; padding: 14px 16px; border: 1px solid; border-radius: 8px; font-size: 15px; background-color: white;" required>
+                        <option value="" disabled selected>Select your role</option>
+                        <option value="student">Student</option>
+                        <option value="staff">Staff</option>
+                        <option value="visitor">Visitor</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
                     <label for="uid">U_ID</label>
                     <input type="text" id="uid" placeholder="Choose your User ID" required>
                     <div class="error-message" id="uid-error">Please enter a valid User ID</div>
@@ -236,6 +261,10 @@
     document.querySelector('.signup-form').addEventListener('submit', async function(e) {
         e.preventDefault();
         
+        const firstName = document.getElementById('firstName').value;
+        const lastName = document.getElementById('lastName').value;
+        const phone = document.getElementById('phone').value;
+        const role = document.getElementById('role').value;
         const uid = document.getElementById('uid').value;
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
@@ -247,6 +276,11 @@
         
         // Basic client-side validation
         let isValid = true;
+
+        if (firstName.trim() === '' || lastName.trim() === '' || role.trim() === '') {
+            alert("Please fill in all required fields (Name, Role, etc.)");
+            isValid = false;
+        }
         
         if (uid.trim() === '') {
             document.getElementById('uid-error').textContent = 'Please enter a User ID';
@@ -277,12 +311,20 @@
         
         try {
             // Send data to backend (relative path since both are served from same origin)
-            const response = await fetch('/api/signup', {
+            const response = await fetch('http://localhost:3000/api/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ uid, email, password })
+                body: JSON.stringify({ 
+                    uid, 
+                    email, 
+                    password,
+                    first_name: firstName,
+                    last_name: lastName,
+                    phone_number: phone,
+                    role
+                })
             });
             
             const result = await response.json();
@@ -317,12 +359,12 @@
     <script>
     // Navigation configuration
     const pageMap = {
-        'dashboard': 'userDashboard.html',
-        'login': 'main.html',
-        'view-citations': 'viewCitations.html',
-        'pay-citation': 'viewCitations.html',
-        'add-vehicle': 'addVehicle.html',
-        'update-parkingzone': 'updateParking.html'
+        'dashboard': '/dashboard',
+        'login': '/',
+        'view-citations': '/citations',
+        'pay-citation': '/citations',
+        'add-vehicle': '/add-vehicle',
+        'update-parkingzone': '/update-parking'
     };
 
     // Navigation function

@@ -230,37 +230,67 @@
     </footer>
 
     <script>
-    // Navigation configuration
-    const pageMap = {
-        'dashboard': 'userDashboard.html',
-        'login': 'main.html',
-        'view-citations': 'viewCitations.html',
-        'pay-citation': 'viewCitations.html',
-        'add-vehicle': 'addVehicle.html',
-        'update-parkingzone': 'updateParking.html'
-    };
+        document.querySelector('.login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const uid = document.getElementById('uid').value;
+            const password = document.getElementById('password').value;
+            
+            // Reset error messages
+            document.getElementById('uid-error').style.display = 'none';
+            document.getElementById('password-error').style.display = 'none';
+            
+            // Basic client-side validation
+            let isValid = true;
+            if (uid.trim() === '') {
+                document.getElementById('uid-error').textContent = 'Please enter your User ID';
+                document.getElementById('uid-error').style.display = 'block';
+                isValid = false;
+            }
+            if (password.trim() === '') {
+                document.getElementById('password-error').textContent = 'Please enter your password';
+                document.getElementById('password-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!isValid) return;
 
-    // Navigation function
-    function navigateTo(page) {
-        if (pageMap[page]) {
-            window.location.href = pageMap[page];
-        } else {
-            console.error('Unknown page:', page);
-        }
-    }
+            // Show loading state
+            const submitBtn = document.querySelector('.login-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Logging In...';
+            submitBtn.disabled = true;
 
-    // Set up navigation links - for login page, we only need logout functionality
-    document.addEventListener('DOMContentLoaded', function() {
-        // If there's a logout link on login page
-        const logoutLink = document.getElementById('logout-link');
-        if (logoutLink) {
-            logoutLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                navigateTo('login');
-            });
-        }
-    });
+            try {
+                const response = await fetch('http://localhost:3000/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ uid, password })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('Login successful! Redirecting to dashboard...');
+                    // Store user info (e.g., UID, role) in localStorage or sessionStorage
+                    // For simplicity, just redirect for now
+                    window.location.href = '/dashboard'; 
+                } else {
+                    document.getElementById('uid-error').textContent = result.message; // Display general error
+                    document.getElementById('uid-error').style.display = 'block';
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Network error. Please check if the server is running.');
+            } finally {
+                // Reset button state
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        });
     </script>
-
 </body>
 </html>
