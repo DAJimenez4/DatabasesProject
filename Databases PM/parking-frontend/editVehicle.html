@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Vehicle - Parking Management</title>
+    <title>Edit Vehicle - Parking Management</title>
     <style>
         * {
             margin: 0;
@@ -216,9 +217,9 @@
 
     <div class="main-content">
         <div class="form-container">
-            <h2>Add New Vehicle</h2>
+            <h2>Edit Vehicle</h2>
 
-            <form id="addVehicleForm">
+            <form id="editVehicleForm">
                 <div class="form-group">
                     <label for="licensePlate">License Plate</label>
                     <input type="text" id="licensePlate" required placeholder="e.g. ABC-1234">
@@ -236,7 +237,7 @@
 
                 <div class="error-message" id="errorMessage"></div>
 
-                <button type="submit" class="submit-btn">Add Vehicle</button>
+                <button type="submit" class="submit-btn">Update Vehicle</button>
             </form>
         </div>
     </div>
@@ -256,57 +257,85 @@
     </footer>
 
     <script>
-        document.getElementById('addVehicleForm').addEventListener('submit', async function (e) {
-            e.preventDefault();
-
+        document.addEventListener('DOMContentLoaded', async function () {
             const user = JSON.parse(localStorage.getItem('user'));
             if (!user || !user.uid) {
                 window.location.href = '/';
                 return;
             }
 
-            const licensePlate = document.getElementById('licensePlate').value;
-            const model = document.getElementById('model').value;
-            const color = document.getElementById('color').value;
-            const errorDiv = document.getElementById('errorMessage');
-            const submitBtn = document.querySelector('.submit-btn');
+            const urlParams = new URLSearchParams(window.location.search);
+            const vehicleId = urlParams.get('id');
 
-            errorDiv.style.display = 'none';
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Adding...';
+            if (!vehicleId) {
+                alert('No vehicle specified');
+                window.location.href = '/vehicles';
+                return;
+            }
 
             try {
-                const response = await fetch('/api/vehicles', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        uid: user.uid,
-                        license_plate: licensePlate,
-                        model: model,
-                        color: color
-                    })
-                });
+                const response = await fetch(`/api/vehicle/${vehicleId}`);
+                const vehicle = await response.json();
 
-                const result = await response.json();
-
-                if (result.success) {
-                    alert('Vehicle added successfully!');
-                    window.location.href = '/vehicles';
+                if (response.ok) {
+                    document.getElementById('licensePlate').value = vehicle.license_plate;
+                    document.getElementById('model').value = vehicle.model;
+                    document.getElementById('color').value = vehicle.color;
                 } else {
-                    errorDiv.textContent = result.message;
-                    errorDiv.style.display = 'block';
+                    alert('Vehicle not found');
+                    window.location.href = '/vehicles';
                 }
             } catch (error) {
-                console.error('Error:', error);
-                errorDiv.textContent = 'An error occurred. Please try again.';
-                errorDiv.style.display = 'block';
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Add Vehicle';
+                console.error('Error fetching vehicle:', error);
+                alert('Error fetching vehicle details');
             }
+
+            document.getElementById('editVehicleForm').addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const licensePlate = document.getElementById('licensePlate').value;
+                const model = document.getElementById('model').value;
+                const color = document.getElementById('color').value;
+                const errorDiv = document.getElementById('errorMessage');
+                const submitBtn = document.querySelector('.submit-btn');
+
+                errorDiv.style.display = 'none';
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Updating...';
+
+                try {
+                    const response = await fetch(`/api/vehicles/${vehicleId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            license_plate: licensePlate,
+                            model: model,
+                            color: color
+                        })
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        alert('Vehicle updated successfully!');
+                        window.location.href = '/vehicles';
+                    } else {
+                        errorDiv.textContent = result.message;
+                        errorDiv.style.display = 'block';
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    errorDiv.textContent = 'An error occurred. Please try again.';
+                    errorDiv.style.display = 'block';
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Update Vehicle';
+                }
+            });
         });
     </script>
 </body>
+
 </html>

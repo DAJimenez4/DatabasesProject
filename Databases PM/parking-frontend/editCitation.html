@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Citation - Parking Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #6a11cb;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h2 {
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #dcdde1;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #34495e;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            color: #2c3e50;
+            text-decoration: none;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            margin-bottom: 1rem;
+            display: none;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Edit Citation</h2>
+        <div id="errorMessage" class="error-message"></div>
+        <form id="editCitationForm">
+            <input type="hidden" id="citationId">
+            <div class="form-group">
+                <label for="citationNumber">Citation Number</label>
+                <input type="text" id="citationNumber" disabled style="background-color: #f0f0f0;">
+            </div>
+            <div class="form-group">
+                <label for="licensePlate">License Plate</label>
+                <input type="text" id="licensePlate" disabled style="background-color: #f0f0f0;">
+            </div>
+            <div class="form-group">
+                <label for="citationDate">Date</label>
+                <input type="date" id="citationDate" required>
+            </div>
+            <div class="form-group">
+                <label for="reason">Reason</label>
+                <input type="text" id="reason" required>
+            </div>
+            <div class="form-group">
+                <label for="amount">Amount ($)</label>
+                <input type="number" id="amount" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status">
+                    <option value="Unpaid">Unpaid</option>
+                    <option value="Paid">Paid</option>
+                    <option value="Appealed">Appealed</option>
+                </select>
+            </div>
+            <button type="submit" class="submit-btn">Update Citation</button>
+        </form>
+        <a href="/admin-dashboard" class="back-link">Back to Dashboard</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (!user || user.role !== 'admin') {
+                window.location.href = '/';
+                return;
+            }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const citationId = urlParams.get('id');
+
+            if (!citationId) {
+                alert('No citation ID provided');
+                window.location.href = '/admin-dashboard';
+                return;
+            }
+
+            document.getElementById('citationId').value = citationId;
+            await loadCitationDetails(citationId);
+        });
+
+        async function loadCitationDetails(id) {
+            try {
+                // Since we don't have a single citation endpoint, we'll fetch all and find it.
+                // In a real app, we should have a specific endpoint.
+                const response = await fetch('/api/all-citations');
+                const citations = await response.json();
+                const citation = citations.find(c => c.citation_id == id);
+
+                if (citation) {
+                    document.getElementById('citationNumber').value = citation.citation_number;
+                    document.getElementById('licensePlate').value = citation.license_plate;
+                    document.getElementById('citationDate').value = new Date(citation.citation_date).toISOString().split('T')[0];
+                    document.getElementById('reason').value = citation.reason;
+                    document.getElementById('amount').value = citation.amount;
+                    document.getElementById('status').value = citation.status;
+                } else {
+                    alert('Citation not found');
+                    window.location.href = '/admin-dashboard';
+                }
+            } catch (error) {
+                console.error('Error loading citation:', error);
+                alert('Error loading citation details');
+            }
+        }
+
+        document.getElementById('editCitationForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const citationId = document.getElementById('citationId').value;
+            const citationDate = document.getElementById('citationDate').value;
+            const reason = document.getElementById('reason').value;
+            const amount = document.getElementById('amount').value;
+            const status = document.getElementById('status').value;
+            const errorDiv = document.getElementById('errorMessage');
+
+            try {
+                const response = await fetch(`/api/citations/${citationId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        citation_date: citationDate,
+                        reason: reason,
+                        amount: amount,
+                        status: status
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('Citation updated successfully!');
+                    window.location.href = '/admin-dashboard';
+                } else {
+                    errorDiv.textContent = data.message || 'Failed to update citation';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                errorDiv.textContent = 'An error occurred';
+                errorDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+
+</html>

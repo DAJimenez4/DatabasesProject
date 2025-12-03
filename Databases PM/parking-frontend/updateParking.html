@@ -11,21 +11,21 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
             background-color: #6a11cb;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
-        
+
         /* Header Styles */
         header {
             background-color: orange;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             padding: 0 20px;
         }
-        
+
         .nav-container {
             display: flex;
             justify-content: space-between;
@@ -34,21 +34,21 @@
             margin: 0 auto;
             height: 70px;
         }
-        
+
         .logo-container {
             display: flex;
             align-items: center;
         }
-        
+
         .nav-links {
             display: flex;
             list-style: none;
         }
-        
+
         .nav-links li {
             margin-left: 30px;
         }
-        
+
         .nav-links a {
             text-decoration: none;
             color: #2c3e50;
@@ -57,7 +57,7 @@
             padding: 5px 0;
             position: relative;
         }
-        
+
         /* Main Content Styles */
         .main-content {
             flex: 1;
@@ -67,7 +67,7 @@
             align-items: center;
             padding: 40px 20px;
         }
-        
+
         .zone-container {
             background-color: white;
             border-radius: 12px;
@@ -76,13 +76,13 @@
             padding: 40px 30px;
             text-align: center;
         }
-        
+
         .zone-container h2 {
             margin-bottom: 30px;
             color: #2c3e50;
             font-weight: 500;
         }
-        
+
         .view-zone-btn {
             padding: 15px 30px;
             background-color: #2c3e50;
@@ -95,12 +95,12 @@
             transition: all 0.3s;
             margin-bottom: 30px;
         }
-        
+
         .view-zone-btn:hover {
             background-color: #34495e;
             transform: translateY(-2px);
         }
-        
+
         /* Table Styles */
         .zone-table {
             width: 100%;
@@ -108,7 +108,7 @@
             margin-top: 20px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
-        
+
         .zone-table th {
             background-color: #34495e;
             color: white;
@@ -116,21 +116,21 @@
             text-align: left;
             font-weight: 600;
         }
-        
+
         .zone-table td {
             padding: 12px 15px;
             border-bottom: 1px solid #ddd;
             text-align: left;
         }
-        
+
         .zone-table tr:hover {
             background-color: #f5f5f5;
         }
-        
+
         .zone-table tr:last-child td {
             border-bottom: none;
         }
-        
+
         .add-edit-btn {
             padding: 8px 16px;
             background-color: #2c3e50;
@@ -142,19 +142,19 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-        
+
         .add-edit-btn:hover {
             background-color: #34495e;
             transform: translateY(-1px);
         }
-        
+
         /* Footer Styles */
         footer {
             background-color: #2c3e50;
             color: white;
             padding: 30px 20px;
         }
-        
+
         .footer-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -163,18 +163,18 @@
         }
 
         .contact-row {
-    	    display: flex;
-   	    align-items: center;
-   	    gap: 15px;
-	    flex-wrap: nowrap; 
-	}
-        
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: nowrap;
+        }
+
         .contact-label {
             font-weight: 600;
             color: #ecf0f1;
             font-size: 16px;
         }
-        
+
         .contact-value {
             color: #bdc3c7;
             font-size: 15px;
@@ -187,53 +187,53 @@
                 height: auto;
                 padding: 15px 0;
             }
-            
+
             .logo-container {
                 margin-bottom: 15px;
             }
-            
+
             .nav-links {
                 width: 100%;
                 justify-content: space-between;
             }
-            
+
             .nav-links li {
                 margin-left: 0;
             }
-            
+
             .zone-table {
                 display: block;
                 overflow-x: auto;
             }
         }
-        
+
         @media (max-width: 480px) {
             .nav-links {
                 flex-wrap: wrap;
                 justify-content: center;
             }
-            
+
             .nav-links li {
                 margin: 5px 10px;
             }
-            
+
             .contact-row {
                 flex-direction: column;
                 gap: 10px;
                 align-items: flex-start;
             }
-            
+
             .zone-table th,
             .zone-table td {
                 padding: 8px 10px;
                 font-size: 14px;
             }
-            
+
             .add-edit-btn {
                 padding: 6px 12px;
                 font-size: 12px;
             }
-            
+
             .view-zone-btn {
                 padding: 12px 24px;
                 font-size: 14px;
@@ -241,29 +241,27 @@
         }
     </style>
 </head>
+
 <body>
     <header>
         <div class="nav-container">
             <div class="logo-container">
                 <div>Parking Management</div>
             </div>
-            
+
             <ul class="nav-links">
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Parking Map</a></li>
-                <li><a href="#">Rates</a></li>
                 <li><a href="userDashboard.html">Dashboard</a></li>
                 <li><a href="main.html">Logout</a></li>
             </ul>
         </div>
     </header>
-    
+
     <div class="main-content">
         <div class="zone-container">
             <h2>Update Parking Zone</h2>
-            
+
             <button class="view-zone-btn" onclick="viewCurrentZone()">View Current Parking Zone</button>
-            
+
             <table class="zone-table">
                 <thead>
                     <tr>
@@ -331,15 +329,15 @@
         }
 
         // You can add functionality to handle different scenarios
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const buttons = document.querySelectorAll('.add-edit-btn');
             buttons.forEach((button, index) => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     const row = this.closest('tr');
                     const permitType = row.cells[0].textContent;
                     const currentZone = row.cells[1].textContent;
                     const vehicles = row.cells[2].textContent;
-                    
+
                     console.log('Managing zone for:', permitType);
                     console.log('Current zone:', currentZone);
                     console.log('Vehicle status:', vehicles);
@@ -349,45 +347,45 @@
     </script>
 
     <script>
-    // Navigation configuration
-    const pageMap = {
-        'dashboard': 'userDashboard.html',
-        'login': 'main.html',
-        'view-citations': 'viewCitations.html',
-        'pay-citation': 'viewCitations.html',
-        'add-vehicle': 'addVehicle.html',
-        'update-parkingzone': 'updateParking.html'
-    };
+        // Navigation configuration
+        const pageMap = {
+            'dashboard': 'userDashboard.html',
+            'login': 'main.html',
+            'view-citations': 'viewCitations.html',
+            'pay-citation': 'viewCitations.html',
+            'add-vehicle': 'addVehicle.html',
+            'update-parkingzone': 'updateParking.html'
+        };
 
-    // Navigation function
-    function navigateTo(page) {
-        if (pageMap[page]) {
-            window.location.href = pageMap[page];
-        } else {
-            console.error('Unknown page:', page);
-        }
-    }
-
-    // Set up navigation links
-    document.addEventListener('DOMContentLoaded', function() {
-        // Dashboard link
-        const dashboardLink = document.getElementById('dashboard-link');
-        if (dashboardLink) {
-            dashboardLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                navigateTo('dashboard');
-            });
+        // Navigation function
+        function navigateTo(page) {
+            if (pageMap[page]) {
+                window.location.href = pageMap[page];
+            } else {
+                console.error('Unknown page:', page);
+            }
         }
 
-        // Logout link
-        const logoutLink = document.getElementById('logout-link');
-        if (logoutLink) {
-            logoutLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                navigateTo('login');
-            });
-        }
-    });
+        // Set up navigation links
+        document.addEventListener('DOMContentLoaded', function () {
+            // Dashboard link
+            const dashboardLink = document.getElementById('dashboard-link');
+            if (dashboardLink) {
+                dashboardLink.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    navigateTo('dashboard');
+                });
+            }
+
+            // Logout link
+            const logoutLink = document.getElementById('logout-link');
+            if (logoutLink) {
+                logoutLink.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    navigateTo('login');
+                });
+            }
+        });
     </script>
 
 </body>

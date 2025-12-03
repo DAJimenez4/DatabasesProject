@@ -42,10 +42,13 @@ CREATE TABLE Permit_Grade (
 -- create Permit table with FOREIGN KEY relationships to Vehicles and Permit_Grade
 CREATE TABLE Permit (
     permit_id INT AUTO_INCREMENT PRIMARY KEY,
-    vehicle_id INT UNIQUE NOT NULL,
+    user_id INT NOT NULL,
+    vehicle_id INT NULL,
     grade_id INT NOT NULL,
     purchase_date DATE NOT NULL,
-    FOREIGN KEY (vehicle_id) REFERENCES Vehicles(vehicle_id) ON DELETE CASCADE,
+    expiration_date DATE NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (vehicle_id) REFERENCES Vehicles(vehicle_id) ON DELETE SET NULL,
     FOREIGN KEY (grade_id) REFERENCES Permit_Grade(grade_id) ON DELETE CASCADE
 );
 
@@ -56,4 +59,16 @@ CREATE TABLE Zone_Access (
     PRIMARY KEY (grade_id, zone_id),
     FOREIGN KEY (grade_id) REFERENCES Permit_Grade(grade_id) ON DELETE CASCADE,
     FOREIGN KEY (zone_id) REFERENCES Parking_Zone(zone_id) ON DELETE CASCADE
+);
+
+-- create Citations table with FOREIGN KEY relationship to Vehicles
+CREATE TABLE Citations (
+    citation_id INT AUTO_INCREMENT PRIMARY KEY,
+    citation_number VARCHAR(20) NOT NULL UNIQUE,
+    citation_date DATE NOT NULL,
+    reason VARCHAR(100) NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(20) DEFAULT 'Unpaid',
+    vehicle_id INT NOT NULL,
+    FOREIGN KEY (vehicle_id) REFERENCES Vehicles(vehicle_id) ON DELETE CASCADE
 );

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Secure Access</title>
+    <title>Purchase Permit - Parking Management</title>
     <style>
         * {
             margin: 0;
@@ -62,24 +63,25 @@
         .main-content {
             flex: 1;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            justify-content: flex-start;
             align-items: center;
             padding: 40px 20px;
         }
 
-        .login-container {
+        .form-container {
             background-color: white;
             border-radius: 12px;
             width: 100%;
-            max-width: 420px;
+            max-width: 500px;
             padding: 40px 30px;
         }
 
-        .login-form h2 {
-            text-align: center;
-            margin-bottom: 25px;
+        .form-container h2 {
+            margin-bottom: 30px;
             color: #2c3e50;
             font-weight: 500;
+            text-align: center;
         }
 
         .form-group {
@@ -91,19 +93,18 @@
             margin-bottom: 8px;
             color: #34495e;
             font-weight: 500;
-            font-size: 14px;
         }
 
-        .form-group input {
+        .form-group select {
             width: 100%;
-            padding: 14px 16px;
-            border: 1px solid;
+            padding: 12px;
+            border: 1px solid #ddd;
             border-radius: 8px;
-            font-size: 15px;
-            transition: all 0.3s;
+            font-size: 16px;
+            background-color: white;
         }
 
-        .login-btn {
+        .submit-btn {
             width: 100%;
             padding: 14px;
             background-color: #2c3e50;
@@ -117,19 +118,9 @@
             margin-top: 10px;
         }
 
-        .form-footer {
-            text-align: center;
-            margin-top: 25px;
-            font-size: 14px;
-            color: #7f8c8d;
+        .submit-btn:hover {
+            background-color: #34495e;
         }
-
-        .form-footer a {
-            color: #3498db;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
 
         .error-message {
             color: #e74c3c;
@@ -169,6 +160,45 @@
             color: #bdc3c7;
             font-size: 15px;
         }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                height: auto;
+                padding: 15px 0;
+            }
+
+            .logo-container {
+                margin-bottom: 15px;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .nav-links li {
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-links li {
+                margin: 5px 10px;
+            }
+
+            .contact-row {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+        }
     </style>
 </head>
 
@@ -180,34 +210,29 @@
             </div>
 
             <ul class="nav-links">
-                <li><a href="loginInfo.html">Login</a></li>
-                <li><a href="signUp.html">Sign Up</a></li>
+                <li><a href="userDashboard.html">Dashboard</a></li>
+                <li><a href="main.html">Logout</a></li>
             </ul>
         </div>
     </header>
 
     <div class="main-content">
-        <div class="login-container">
+        <div class="form-container">
+            <h2>Purchase Permit</h2>
 
+            <form id="addPermitForm">
 
-            <form class="login-form">
-                <h2>Log In</h2>
 
                 <div class="form-group">
-                    <label for="uid">U_ID</label>
-                    <input type="text" id="uid" placeholder="Enter your User ID" required>
-                    <div class="error-message" id="uid-error">Please enter a valid User ID</div>
+                    <label for="gradeSelect">Select Permit Grade</label>
+                    <select id="gradeSelect" required>
+                        <option value="">Loading grades...</option>
+                    </select>
                 </div>
 
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Enter your password" required>
-                    <div class="error-message" id="password-error">Please enter your password</div>
-                </div>
+                <div class="error-message" id="errorMessage"></div>
 
-                <button type="submit" class="login-btn">Sign In</button>
-
-
+                <button type="submit" class="submit-btn">Purchase Permit</button>
             </form>
         </div>
     </div>
@@ -227,72 +252,82 @@
     </footer>
 
     <script>
-        document.querySelector('.login-form').addEventListener('submit', async function (e) {
+        document.addEventListener('DOMContentLoaded', async function () {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (!user || !user.uid) {
+                window.location.href = '/';
+                return;
+            }
+
+            const gradeSelect = document.getElementById('gradeSelect');
+
+            // Fetch Permit Grades
+            try {
+                const response = await fetch('/api/permit-grades');
+                const grades = await response.json();
+
+                gradeSelect.innerHTML = '<option value="">-- Select Grade --</option>';
+                grades.forEach(grade => {
+                    const option = document.createElement('option');
+                    option.value = grade.grade_id;
+                    option.text = `${grade.grade_name} - $${grade.grade_price}`;
+                    gradeSelect.add(option);
+                });
+            } catch (error) {
+                console.error('Error fetching grades:', error);
+                gradeSelect.innerHTML = '<option value="">Error loading grades</option>';
+            }
+        });
+
+        document.getElementById('addPermitForm').addEventListener('submit', async function (e) {
             e.preventDefault();
 
-            const uid = document.getElementById('uid').value;
-            const password = document.getElementById('password').value;
+            const user = JSON.parse(localStorage.getItem('user'));
+            const gradeId = document.getElementById('gradeSelect').value;
+            const errorDiv = document.getElementById('errorMessage');
+            const submitBtn = document.querySelector('.submit-btn');
 
-            // Reset error messages
-            document.getElementById('uid-error').style.display = 'none';
-            document.getElementById('password-error').style.display = 'none';
-
-            // Basic client-side validation
-            let isValid = true;
-            if (uid.trim() === '') {
-                document.getElementById('uid-error').textContent = 'Please enter your User ID';
-                document.getElementById('uid-error').style.display = 'block';
-                isValid = false;
-            }
-            if (password.trim() === '') {
-                document.getElementById('password-error').textContent = 'Please enter your password';
-                document.getElementById('password-error').style.display = 'block';
-                isValid = false;
+            if (!gradeId) {
+                errorDiv.textContent = 'Please select a permit grade.';
+                errorDiv.style.display = 'block';
+                return;
             }
 
-            if (!isValid) return;
-
-            // Show loading state
-            const submitBtn = document.querySelector('.login-btn');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Logging In...';
+            errorDiv.style.display = 'none';
             submitBtn.disabled = true;
+            submitBtn.textContent = 'Purchasing...';
 
             try {
-                const response = await fetch('http://localhost:3000/api/login', {
+                const response = await fetch('/api/permits', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ uid, password })
+                    body: JSON.stringify({
+                        uid: user.uid,
+                        grade_id: gradeId
+                    })
                 });
 
                 const result = await response.json();
 
                 if (result.success) {
-                    alert('Login successful! Redirecting to dashboard...');
-                    // Store user info in localStorage
-                    localStorage.setItem('user', JSON.stringify(result.user));
-
-                    if (result.user.role === 'admin') {
-                        window.location.href = '/admin-dashboard';
-                    } else {
-                        window.location.href = '/dashboard';
-                    }
+                    alert('Permit purchased successfully!');
+                    window.location.href = '/permits';
                 } else {
-                    document.getElementById('uid-error').textContent = result.message; // Display general error
-                    document.getElementById('uid-error').style.display = 'block';
+                    errorDiv.textContent = result.message;
+                    errorDiv.style.display = 'block';
                 }
-
             } catch (error) {
                 console.error('Error:', error);
-                alert('Network error. Please check if the server is running.');
+                errorDiv.textContent = 'An error occurred. Please try again.';
+                errorDiv.style.display = 'block';
             } finally {
-                // Reset button state
-                submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
+                submitBtn.textContent = 'Purchase Permit';
             }
         });
     </script>
 </body>
+
 </html>

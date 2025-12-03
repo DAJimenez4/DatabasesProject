@@ -7,31 +7,7 @@
 
 ## Setup Instructions
 
-### 1. Database Setup
-
-1.  **Start MySQL:** Ensure your MySQL server is running.
-2.  **Create the Database:**
-    Open your terminal and log in to MySQL:
-    ```bash
-    mysql -u root -p
-    ```
-    Run the following command to create the database:
-    ```sql
-    CREATE DATABASE parking_db;
-    EXIT;
-    ```
-
-3.  **Load Schema and Data:**
-    Navigate to the project root directory and import the SQL files:
-    ```bash
-    # Import the schema (creates tables)
-    mysql -u root -p parking_db < create.sql
-
-    # Import initial data (users, zones, etc.)
-    mysql -u root -p parking_db < load.sql
-    ```
-
-### 2. Backend Configuration
+### 1. Backend Configuration
 
 1.  Navigate to the backend directory:
     ```bash
@@ -53,6 +29,17 @@
     ```
     *Replace `your_mysql_password_here` with your actual MySQL root password.*
 
+### 2. Database Setup
+
+1.  **Start MySQL:** Ensure your MySQL server is running.
+
+2.  **Initialize the Database:**
+    Run the initialization script from the `parking-backend` directory. This script will **reset** the database (drop and recreate) and load the initial data.
+    ```bash
+    node init_db.js
+    ```
+    *Note: This command uses `create.sql` and `load.sql` from the project root.*
+
 ### 3. Running the Application
 
 1.  **Start the Server:**
@@ -62,9 +49,9 @@
     ```
     You should see:
     ```
-    🚀 Server running on http://localhost:3000
-    📁 Serving frontend from: ...
-    ✅ Database connected successfully
+    Server running on http://localhost:3000
+    Serving frontend from: ...
+    Database connected successfully
     ```
 
 2.  **Access the App:**
@@ -79,19 +66,30 @@ You can log in with any of the following pre-configured users:
 
 | Role | User ID (UID) | Password |
 | :--- | :--- | :--- |
+| **Admin** | `admin` | `admin` |
 | **Student** | `john.doe` | `password123` |
 | **Staff** | `jane.smith` | `password123` |
 | **Visitor** | `bob.johnson` | `password123` |
 
 ### Features
-*   **Sign Up:** Create a new account with a specific role.
-*   **Dashboard:** Central hub for user actions.
-*   **View Citations:** Check parking citations (currently static data).
-*   **Navigation:** Seamless routing between pages.
+
+#### User Features
+*   **Sign Up/Login:** Secure authentication.
+*   **Dashboard:** View your parking status.
+*   **View Citations:** View and **pay** citations directly.
+*   **Manage Vehicles:** Add, edit, and view your vehicles.
+*   **Manage Permits:** Purchase and view parking permits.
+
+#### Admin Features
+*   **Admin Dashboard:** Overview of all citations.
+*   **Manage Citations:** Create, edit, and delete citations.
+*   **Citation Payment:** Mark citations as paid.
 
 ## Project Structure
 
 *   **`create.sql`**: Database schema definition.
 *   **`load.sql`**: Initial seed data.
 *   **`Databases PM/parking-backend/`**: Node.js Express server.
+    *   `server.js`: Main application logic.
+    *   `init_db.js`: Database initialization script.
 *   **`Databases PM/parking-frontend/`**: Static HTML/CSS/JS frontend files.
