@@ -68,8 +68,7 @@ You can log in with any of the following pre-configured users:
 | :--- | :--- | :--- |
 | **Admin** | `admin` | `admin` |
 | **Student** | `john.doe` | `password123` |
-| **Staff** | `jane.smith` | `password123` |
-| **Visitor** | `bob.johnson` | `password123` |
+| **Staff** | `jane.doe` | `password123` |
 
 ### Features
 
