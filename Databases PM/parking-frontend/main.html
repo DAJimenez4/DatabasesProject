@@ -274,8 +274,8 @@
                 
                 if (result.success) {
                     alert('Login successful! Redirecting to dashboard...');
-                    // Store user info (e.g., UID, role) in localStorage or sessionStorage
-                    // For simplicity, just redirect for now
+                    // Store user info in localStorage for session
+                    localStorage.setItem('user', JSON.stringify(result.user));
                     window.location.href = '/dashboard'; 
                 } else {
                     document.getElementById('uid-error').textContent = result.message; // Display general error

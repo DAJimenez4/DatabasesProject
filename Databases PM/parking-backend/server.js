@@ -178,6 +178,73 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
+// Admin Login API endpoint
+app.post('/api/admin/login', async (req, res) => {
+    const { uid, password } = req.body;
+
+    try {
+        // Validate required fields
+        if (!uid || !password) {
+            return res.status(400).json({
+                success: false,
+                message: 'Employee ID and password are required'
+            });
+        }
+
+        // Find user by UID
+        const [rows] = await pool.execute(
+            'SELECT * FROM users WHERE uid = ?',
+            [uid]
+        );
+
+        const user = rows[0];
+
+        if (!user) {
+            return res.status(401).json({
+                success: false,
+                message: 'Invalid Employee ID or password'
+            });
+        }
+
+        // Compare password with hashed password
+        const passwordMatch = await bcrypt.compare(password, user.password_hash);
+
+        if (!passwordMatch) {
+            return res.status(401).json({
+                success: false,
+                message: 'Invalid Employee ID or password'
+            });
+        }
+
+        // Check if user has admin/employee role
+        const adminRoles = ['admin', 'employee', 'staff', 'faculty'];
+        if (!adminRoles.includes(user.role.toLowerCase())) {
+            return res.status(403).json({
+                success: false,
+                message: 'Access denied. Employee credentials required.'
+            });
+        }
+
+        res.json({
+            success: true,
+            message: 'Employee login successful',
+            user: {
+                user_id: user.user_id,
+                uid: user.uid,
+                email: user.email,
+                role: user.role
+            }
+        });
+
+    } catch (error) {
+        console.error('Admin login error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error'
+        });
+    }
+});
+
 // Get Vehicles by UID
 app.get('/api/vehicles/:uid', async (req, res) => {
     const { uid } = req.params;
@@ -490,6 +557,10 @@ app.post('/api/citations/:id/pay', async (req, res) => {
         console.error('Error paying citation:', error);
         res.status(500).json({ success: false, message: 'Internal server error' });
     }
+});
+
+app.get('/admin-login', (req, res) => {
+    res.sendFile(path.join(__dirname, '../parking-frontend/adminLogin.html'));
 });
 
 app.get('/admin-dashboard', (req, res) => {

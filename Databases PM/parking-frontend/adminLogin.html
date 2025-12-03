@@ -347,8 +347,9 @@
                     
                     if (result.success) {
                         alert('Employee login successful! Redirecting to admin dashboard...');
-                        // In a real app, you would store the token and redirect
-                        window.location.href = '/admin-dashboard.html'; // Create this page
+                        // Store user info in localStorage for session
+                        localStorage.setItem('user', JSON.stringify(result.user));
+                        window.location.href = '/admin-dashboard';
                     } else {
                         alert('Login failed: ' + result.message);
                     }
