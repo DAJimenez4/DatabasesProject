@@ -13,7 +13,7 @@
         }
 
         body {
-            background-color: #6a11cb;
+            background-color: blueviolet;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -51,7 +51,7 @@
 
         .nav-links a {
             text-decoration: none;
-            color: #2c3e50;
+            color: darkgray;
             font-weight: 500;
             font-size: 16px;
             padding: 5px 0;
@@ -79,7 +79,7 @@
 
         .citations-container h2 {
             margin-bottom: 30px;
-            color: #2c3e50;
+            color: darkgray;
             font-weight: 500;
         }
 
@@ -92,7 +92,7 @@
 
         .citation-btn {
             padding: 15px;
-            background-color: #2c3e50;
+            background-color: darkgray;
             color: white;
             border: none;
             border-radius: 8px;
@@ -103,7 +103,7 @@
         }
 
         .citation-btn:hover {
-            background-color: #34495e;
+            background-color: gray;
             transform: translateY(-2px);
         }
 
@@ -116,7 +116,7 @@
         }
 
         .citations-table th {
-            background-color: #34495e;
+            background-color: gray;
             color: white;
             padding: 15px;
             text-align: left;
@@ -125,12 +125,12 @@
 
         .citations-table td {
             padding: 12px 15px;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid lightgray;
             text-align: left;
         }
 
         .citations-table tr:hover {
-            background-color: #f5f5f5;
+            background-color: whitesmoke;
         }
 
         .citations-table tr:last-child td {
@@ -139,18 +139,18 @@
 
         .amount {
             font-weight: 600;
-            color: #e74c3c;
+            color: red;
         }
 
         .no-citations {
             padding: 40px;
-            color: #7f8c8d;
+            color: gray;
             font-style: italic;
         }
 
         /* Footer Styles */
         footer {
-            background-color: #2c3e50;
+            background-color: darkgray;
             color: white;
             padding: 30px 20px;
         }
@@ -171,12 +171,12 @@
 
         .contact-label {
             font-weight: 600;
-            color: #ecf0f1;
+            color: whitesmoke;
             font-size: 16px;
         }
 
         .contact-value {
-            color: #bdc3c7;
+            color: silver;
             font-size: 15px;
         }
 
@@ -303,14 +303,14 @@
                                     let statusColor;
 
                                     if (isPaid) {
-                                        actionBtn = '<button class="citation-btn" disabled style="background-color: #95a5a6; cursor: not-allowed;">Paid</button>';
-                                        statusColor = '#27ae60';
+                                        actionBtn = '<button class="citation-btn" disabled style="background-color: darkgray; cursor: not-allowed;">Paid</button>';
+                                        statusColor = 'green';
                                     } else if (isAppealed) {
-                                        actionBtn = '<button class="citation-btn" disabled style="background-color: #f39c12; cursor: not-allowed;">Appealed</button>';
-                                        statusColor = '#f39c12';
+                                        actionBtn = '<button class="citation-btn" disabled style="background-color: orange; cursor: not-allowed;">Appealed</button>';
+                                        statusColor = 'orange';
                                     } else {
-                                        actionBtn = `<button class="citation-btn" onclick="payCitation(${citation.citation_id})" style="background-color: #27ae60; padding: 8px 15px;">Pay</button>`;
-                                        statusColor = '#e74c3c';
+                                        actionBtn = `<button class="citation-btn" onclick="payCitation(${citation.citation_id})" style="background-color: green; padding: 8px 15px;">Pay</button>`;
+                                        statusColor = 'red';
                                     }
 
                                     row.innerHTML = `

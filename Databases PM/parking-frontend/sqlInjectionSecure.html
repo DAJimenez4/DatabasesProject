@@ -14,7 +14,7 @@
         }
 
         body {
-            background-color: #6a11cb;
+            background-color: blueviolet;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -51,7 +51,7 @@
 
         .nav-links a {
             text-decoration: none;
-            color: #2c3e50;
+            color: darkgray;
             font-weight: 500;
             font-size: 16px;
         }
@@ -77,7 +77,7 @@
         .search-container h2 {
             text-align: center;
             margin-bottom: 25px;
-            color: #2c3e50;
+            color: darkgray;
             font-weight: 500;
         }
 
@@ -88,7 +88,7 @@
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: #34495e;
+            color: gray;
             font-weight: 500;
             font-size: 14px;
         }
@@ -96,7 +96,7 @@
         .form-group input {
             width: 100%;
             padding: 14px 16px;
-            border: 1px solid #ddd;
+            border: 1px solid lightgray;
             border-radius: 8px;
             font-size: 15px;
             transition: all 0.3s;
@@ -104,13 +104,13 @@
 
         .form-group input:focus {
             outline: none;
-            border-color: #6a11cb;
+            border-color: blueviolet;
         }
 
         .search-btn {
             width: 100%;
             padding: 14px;
-            background-color: #2c3e50;
+            background-color: darkgray;
             color: white;
             border: none;
             border-radius: 8px;
@@ -122,36 +122,36 @@
         }
 
         .search-btn:hover {
-            background-color: #1a252f;
+            background-color: gray;
         }
 
         .payloads {
             margin-top: 20px;
             padding-top: 20px;
-            border-top: 1px solid #eee;
+            border-top: 1px solid lightgray;
         }
 
         .payloads h4 {
-            color: #34495e;
+            color: gray;
             font-size: 14px;
             margin-bottom: 10px;
         }
 
         .payload-btn {
             display: inline-block;
-            background-color: #f1f1f1;
+            background-color: whitesmoke;
             padding: 6px 12px;
             border-radius: 4px;
             font-family: 'Courier New', monospace;
             font-size: 12px;
-            color: #27ae60;
+            color: green;
             cursor: pointer;
             margin: 4px;
-            border: 1px solid #ddd;
+            border: 1px solid lightgray;
         }
 
         .payload-btn:hover {
-            background-color: #e0e0e0;
+            background-color: lightgray;
         }
 
         .results-container {
@@ -165,7 +165,7 @@
         .results-container h2 {
             text-align: center;
             margin-bottom: 20px;
-            color: #2c3e50;
+            color: darkgray;
             font-weight: 500;
         }
 
@@ -178,24 +178,24 @@
         .results-table td {
             padding: 10px;
             text-align: left;
-            border-bottom: 1px solid #ecf0f1;
+            border-bottom: 1px solid whitesmoke;
             font-size: 14px;
         }
 
         .results-table th {
-            background-color: #2c3e50;
+            background-color: darkgray;
             color: white;
             font-weight: 500;
         }
 
         .no-results {
             text-align: center;
-            color: #7f8c8d;
+            color: gray;
             padding: 20px;
         }
 
         footer {
-            background-color: #2c3e50;
+            background-color: darkgray;
             color: white;
             padding: 30px 20px;
         }
@@ -214,12 +214,12 @@
 
         .contact-label {
             font-weight: 600;
-            color: #ecf0f1;
+            color: whitesmoke;
             font-size: 16px;
         }
 
         .contact-value {
-            color: #bdc3c7;
+            color: silver;
             font-size: 15px;
         }
     </style>
@@ -297,7 +297,7 @@
                 const data = await response.json();
                 
                 if (data.error) {
-                    resultsArea.innerHTML = `<p class="no-results" style="color: #e74c3c;">Error: ${data.error}</p>`;
+                    resultsArea.innerHTML = `<p class="no-results" style="color: red;">Error: ${data.error}</p>`;
                     return;
                 }
                 
@@ -333,7 +333,7 @@
                 }
                 
             } catch (error) {
-                resultsArea.innerHTML = '<p class="no-results" style="color: #e74c3c;">Network error. Make sure the server is running.</p>';
+                resultsArea.innerHTML = '<p class="no-results" style="color: red;">Network error. Make sure the server is running.</p>';
             }
         });
     </script>

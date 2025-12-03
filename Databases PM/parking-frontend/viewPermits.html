@@ -14,7 +14,7 @@
         }
 
         body {
-            background-color: #6a11cb;
+            background-color: blueviolet;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -52,7 +52,7 @@
 
         .nav-links a {
             text-decoration: none;
-            color: #2c3e50;
+            color: darkgray;
             font-weight: 500;
             font-size: 16px;
             padding: 5px 0;
@@ -80,7 +80,7 @@
 
         .permits-container h2 {
             margin-bottom: 30px;
-            color: #2c3e50;
+            color: darkgray;
             font-weight: 500;
         }
 
@@ -93,7 +93,7 @@
         }
 
         .permits-table th {
-            background-color: #34495e;
+            background-color: gray;
             color: white;
             padding: 15px;
             text-align: left;
@@ -102,12 +102,12 @@
 
         .permits-table td {
             padding: 12px 15px;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid lightgray;
             text-align: left;
         }
 
         .permits-table tr:hover {
-            background-color: #f5f5f5;
+            background-color: whitesmoke;
         }
 
         .permits-table tr:last-child td {
@@ -116,13 +116,13 @@
 
         .no-permits {
             padding: 40px;
-            color: #7f8c8d;
+            color: gray;
             font-style: italic;
         }
 
         /* Footer Styles */
         footer {
-            background-color: #2c3e50;
+            background-color: darkgray;
             color: white;
             padding: 30px 20px;
         }
@@ -143,12 +143,12 @@
 
         .contact-label {
             font-weight: 600;
-            color: #ecf0f1;
+            color: whitesmoke;
             font-size: 16px;
         }
 
         .contact-value {
-            color: #bdc3c7;
+            color: silver;
             font-size: 15px;
         }
 
@@ -290,8 +290,8 @@
 
                         const isActive = now <= expirationDate;
                         const statusHtml = isActive
-                            ? '<span style="color: #27ae60; font-weight: bold;">Active</span>'
-                            : '<span style="color: #c0392b; font-weight: bold;">Expired</span>';
+                            ? '<span style="color: green; font-weight: bold;">Active</span>'
+                            : '<span style="color: darkred; font-weight: bold;">Expired</span>';
 
                         row.innerHTML = `
                             <td>${permit.grade_name}</td>
